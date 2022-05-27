@@ -1,8 +1,7 @@
-package com.itheima.reggie.entity;
+package org.example.ruiji_waimai.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 

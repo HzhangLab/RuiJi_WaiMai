@@ -1,2 +1,49 @@
-package org.example.ruiji_waimai.service.impl;public class EmployeeServiceImpl {
+package org.example.ruiji_waimai.service.impl;
+
+import org.example.ruiji_waimai.entity.Employee;
+import org.example.ruiji_waimai.repository.EmployeeRepository;
+import org.example.ruiji_waimai.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    @Override
+    public Employee queryEmployeeByUserName(String userName) {
+        Example example = new Example(Employee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("username", userName);
+        List<Employee> employees = employeeRepository.selectByExample(example);
+        return employees.isEmpty() ? null : employees.get(0);
+    }
+
+    @Override
+    public List<Employee> queryAll() {
+        return employeeRepository.selectAll();
+    }
+
+    @Override
+    public Integer createEmployee(Employee employee) {
+        return employeeRepository.insert(employee);
+    }
+
+    @Override
+    public Employee queryEmployeeById(Long employeeId) {
+        Example example = new Example(Employee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("id", employeeId);
+        return employeeRepository.selectOneByExample(example);
+    }
+
+    @Override
+    public Integer update(Employee employee) {
+        return employeeRepository.updateByPrimaryKeySelective(employee);
+    }
 }

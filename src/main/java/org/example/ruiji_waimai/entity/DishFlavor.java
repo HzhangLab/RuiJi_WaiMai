@@ -1,10 +1,7 @@
-package com.itheima.reggie.entity;
+package org.example.ruiji_waimai.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -30,20 +27,12 @@ public class DishFlavor implements Serializable {
     //口味数据list
     private String value;
 
-
-    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
-
-    @TableField(fill = FieldFill.INSERT)
     private Long createUser;
 
-
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 
 

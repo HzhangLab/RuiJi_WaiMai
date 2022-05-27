@@ -1,6 +1,7 @@
-package com.itheima.reggie.entity;
+package org.example.ruiji_waimai.entity;
 
 import lombok.Data;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

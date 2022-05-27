@@ -1,8 +1,8 @@
-package com.itheima.reggie.entity;
+package org.example.ruiji_waimai.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
+import org.apache.ibatis.annotations.Property;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -31,10 +31,8 @@ public class Employee implements Serializable {
 
     private LocalDateTime updateTime;
 
-    @TableField(fill = FieldFill.INSERT)
     private Long createUser;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 
 }
