@@ -4,16 +4,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.example.ruiji_waimai.common.Result;
-import org.example.ruiji_waimai.controller.VO.PageResult;
+import org.example.ruiji_waimai.VO.PageResult;
 import org.example.ruiji_waimai.entity.Employee;
 import org.example.ruiji_waimai.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.WebMethod;
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -47,9 +46,14 @@ public class EmployeeController {
     }
 
     @GetMapping("page")
-    public Result<PageResult<Employee>> queryEmployees(@RequestParam("page") int pageNum, @RequestParam("pageSize") int pageSize) {
+    public Result<PageResult<Employee>> queryEmployees(@RequestParam("page") int pageNum, @RequestParam("pageSize") int pageSize, @RequestParam(value = "name",required = false) String name) {
+        List<Employee> employees = null;
         PageHelper.startPage(pageNum, pageSize);
-        List<Employee> employees = employeeService.queryAll();
+        if (StringUtils.hasLength(name)){
+            employees = employeeService.queryAllOrderByCreateTimeDesc();
+        } else {
+            employees = employeeService.queryEmployeeByLikeName(name);
+        }
         PageInfo<Employee> pageInfo = new PageInfo<>(employees);
         PageResult<Employee> pageResult = new PageResult<>();
         pageResult.setRecords(pageInfo.getList());
@@ -90,7 +94,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{employeeId}")
-    public Result<Employee> geiEmployeeById(@PathParam("employeeId") Long employeeId ) {
+    public Result<Employee> geiEmployeeById(@PathVariable("employeeId") Long employeeId ) {
         log.info("getEmployeeById: id:" + employeeId);
         Employee employee = employeeService.queryEmployeeById(employeeId);
         return employee == null ? Result.error("error") : Result.success(employee);

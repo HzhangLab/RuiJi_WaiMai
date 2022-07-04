@@ -7,11 +7,13 @@ import java.util.List;
 public interface EmployeeService {
     Employee queryEmployeeByUserName(String userName);
 
-    List<Employee> queryAll();
+    List<Employee> queryAllOrderByCreateTimeDesc();
 
     Integer createEmployee(Employee employee);
 
     Employee queryEmployeeById(Long employeeId);
 
     Integer update(Employee employee);
+
+    List<Employee> queryEmployeeByLikeName(String name);
 }

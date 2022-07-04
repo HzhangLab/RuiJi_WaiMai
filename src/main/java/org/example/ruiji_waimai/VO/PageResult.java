@@ -1,4 +1,4 @@
-package org.example.ruiji_waimai.controller.VO;
+package org.example.ruiji_waimai.VO;
 
 import lombok.Data;
 

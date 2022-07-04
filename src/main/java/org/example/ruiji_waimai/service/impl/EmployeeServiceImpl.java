@@ -25,8 +25,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> queryAll() {
-        return employeeRepository.selectAll();
+    public List<Employee> queryAllOrderByCreateTimeDesc() {
+        Example example = new Example(Employee.class);
+        example.setOrderByClause("create_time desc");
+        return employeeRepository.selectByExample(example);
     }
 
     @Override
@@ -39,11 +41,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         Example example = new Example(Employee.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("id", employeeId);
+        example.setOrderByClause("create_time desc");
         return employeeRepository.selectOneByExample(example);
     }
 
     @Override
     public Integer update(Employee employee) {
         return employeeRepository.updateByPrimaryKeySelective(employee);
+    }
+
+    @Override
+    public List<Employee> queryEmployeeByLikeName(String name) {
+        Example example = new Example(Employee.class);
+        Example.Criteria criteria = example.createCriteria();
+        String likeName = "%" + name +"%";
+        criteria.andLike("name", likeName);
+        return employeeRepository.selectByExample(example);
     }
 }
