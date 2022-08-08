@@ -68,6 +68,7 @@ public class CategoryController {
         category.setUpdateTime(LocalDateTime.now());
         category.setUpdateUser( (Long) request.getSession().getAttribute("employee"));
         categoryService.updateCategory(category);
+        String test = "";
         return Result.success("success");
     }
 

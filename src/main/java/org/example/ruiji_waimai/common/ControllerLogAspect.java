@@ -13,7 +13,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -37,7 +36,7 @@ public class ControllerLogAspect {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
         HttpServletRequest httpServletRequest = servletRequestAttributes.getRequest();
 
-        //请求URL
+        // 请求URL
         String requestURL = httpServletRequest.getRequestURL().toString();
         log.info("requestURL:{}, reqeustParams:{}", requestURL, Arrays.toString(point.getArgs()));
 
@@ -48,7 +47,8 @@ public class ControllerLogAspect {
             // 结束时间
             Long endTime = System.currentTimeMillis();
             // 打印日志
-            log.info("response:{}, spentTime:{}", null == response ? "" : JSONObject.toJSONString(response), endTime - startTime);
+            log.info("response:{}, spentTime:{}", null == response ? "" : JSONObject.toJSONString(response),
+                    endTime - startTime);
             return response;
         } catch (Exception e) {
             // 打印异常信息
@@ -56,7 +56,5 @@ public class ControllerLogAspect {
             throw e;
         }
     }
-
-
 
 }
