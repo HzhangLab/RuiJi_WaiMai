@@ -40,9 +40,10 @@ public class CategoryController {
         log.info("createCategory: " + category);
         //inser createTime uupdateTime
         LocalDateTime createTime = LocalDateTime.now();
+        LocalDateTime createTime = LocalDateTime.now();
         category.setCreateTime(createTime);
         category.setUpdateTime(createTime);
-        //insert CreateUser updateUser
+        //insert CreateUser updateUser1
         long createUser = (Long) request.getSession().getAttribute("employee");
         category.setCreateUser(createUser);
         category.setUpdateUser(createUser);
